@@ -26,7 +26,17 @@ const splitLink = split(
 
 const client = new ApolloClient({
     link: splitLink,
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+        typePolicies: {
+            Query: {
+                fields: {
+                    getAllPosts: {
+                        merge: true
+                    },
+                },
+            }
+        }
+    })
 })
 
 export default client

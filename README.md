@@ -11,6 +11,7 @@ https://github.com/avcialper/Vote-ReactNative/assets/90919011/a9348a7c-4be5-467a
 - @react-navigation/native-stack
 - formik
 - graphql
+- graphql-ws
 - lottie-react-native
 - native-base
 - react-native-modal

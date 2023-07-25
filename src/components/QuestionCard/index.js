@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pressable, Text } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { DELETE_QUESTION_MUTATION } from '../../queries'
@@ -16,12 +16,15 @@ export default ({ item }) => {
         }
     })
 
+    const isOwner = auth().currentUser?.uid === item.user_id
+
     const handleDelete = async () => {
         await deleteQuestions()
     }
 
     return (
         <Pressable style={{
+            width: '95%',
             padding: 8,
             margin: 8,
             borderWidth: 2,
@@ -33,12 +36,14 @@ export default ({ item }) => {
             alignItems: 'center',
             alignSelf: 'center'
         }} onPress={() => navigation.navigate('Detail', { id: item.id })} >
-            <Text style={{
-                color: 'black',
-                fontSize: 24,
-                fontWeight: '700'
-            }} >{item.text}</Text>
-            {auth().currentUser?.uid === item.user_id &&
+            <View style={[isOwner ? { width: '90%' } : { width: '100%' }]} >
+                <Text style={{
+                    color: 'black',
+                    fontSize: 24,
+                    fontWeight: '700'
+                }} >{item.text}</Text>
+            </View>
+            {isOwner &&
                 <Icon
                     name='close-box'
                     size={36}
